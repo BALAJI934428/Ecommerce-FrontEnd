@@ -12,7 +12,7 @@ export default function Profile() {
           <figure className="avatar avatar-profile">
             <img
               className="rounded-circle img-fluid"
-              src={user.avatar ?? "./images/default_avatar.png"}
+              src="./images/default_avatar.png"
               alt=""
             />
           </figure>
