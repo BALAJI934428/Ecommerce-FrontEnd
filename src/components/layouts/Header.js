@@ -41,7 +41,14 @@ export default function Header() {
               id="dropdown-basic"
             >
               <figure className="avatar avatar-nav">
-                <Image width="50px" src={"./images/default_avatar.png"} />
+                <Image
+                  width="50px"
+                  src={
+                    user.avatar == undefined
+                      ? "./images/default_avatar.png"
+                      : user.avatar
+                  }
+                />
               </figure>
               <span>{user.name}</span>
             </Dropdown.Toggle>
