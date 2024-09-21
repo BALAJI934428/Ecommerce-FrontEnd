@@ -1,9 +1,9 @@
+import "./Css.css";
 import Home from "./components/Home";
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import "../src/App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductDetail from "./components/product/ProductDetail";
@@ -17,15 +17,15 @@ import Profile from "./components/user/Profile";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
-import ForgetPassword from "./components/user/ForgetPassword";
+import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import Cart from "./components/cart/Cart";
 import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Payment from "./components/cart/Payment";
+import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
 import OrderSuccess from "./components/cart/OrderSuccess";
 import UserOrders from "./components/order/UserOrders";
 import OrderDetail from "./components/order/OrderDetail";
@@ -38,18 +38,13 @@ import UpdateOrder from "./components/admin/UpdateOrder";
 import UserList from "./components/admin/UserList";
 import UpdateUser from "./components/admin/UpdateUser";
 import ReviewList from "./components/admin/ReviewList";
-import OutofStock from "./components/admin/OutofStock";
-import { useDispatch } from "react-redux";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
-  const dispatch = useDispatch();
   useEffect(() => {
     store.dispatch(loadUser);
-
     async function getStripeApiKey() {
       const { data } = await axios.get("/api/v1/stripeapi");
-
       setStripeApiKey(data.stripeApiKey);
     }
     getStripeApiKey();
@@ -92,7 +87,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/password/forgot" element={<ForgetPassword />} />
+              <Route path="/password/forgot" element={<ForgotPassword />} />
               <Route
                 path="/password/reset/:token"
                 element={<ResetPassword />}
@@ -122,8 +117,22 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/orders" element={<UserOrders />} />
-              <Route path="/order/:id" element={<OrderDetail />} />
+              <Route
+                path="/orders"
+                element={
+                  <ProtectedRoute>
+                    <UserOrders />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/order/:id"
+                element={
+                  <ProtectedRoute>
+                    <OrderDetail />
+                  </ProtectedRoute>
+                }
+              />
               {stripeApiKey && (
                 <Route
                   path="/payment"
@@ -209,14 +218,6 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <ReviewList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/outofstock"
-              element={
-                <ProtectedRoute isAdmin={true}>
-                  <OutofStock />
                 </ProtectedRoute>
               }
             />

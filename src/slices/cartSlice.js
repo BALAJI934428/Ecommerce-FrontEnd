@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -20,24 +21,35 @@ const cartSlice = createSlice({
     },
     addCartItemSuccess(state, action) {
       const item = action.payload;
-      const isItemExist = state.items.find((i) => i.product === item.product);
+
+      const isItemExist = state.items.find((i) => i.product == item.product);
+
       if (isItemExist) {
         state = {
           ...state,
           loading: false,
         };
+        toast("Item Already exist in Cart", {
+          type: "error",
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       } else {
         state = {
           items: [...state.items, item],
           loading: false,
         };
+
         localStorage.setItem("cartItems", JSON.stringify(state.items));
+        toast("Cart Item Added!", {
+          type: "success",
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
       return state;
     },
     increaseCartItemQty(state, action) {
       state.items = state.items.map((item) => {
-        if (item.product === action.payload) {
+        if (item.product == action.payload) {
           item.quantity = item.quantity + 1;
         }
         return item;
@@ -46,7 +58,7 @@ const cartSlice = createSlice({
     },
     decreaseCartItemQty(state, action) {
       state.items = state.items.map((item) => {
-        if (item.product === action.payload) {
+        if (item.product == action.payload) {
           item.quantity = item.quantity - 1;
         }
         return item;
@@ -70,7 +82,6 @@ const cartSlice = createSlice({
         shippingInfo: action.payload,
       };
     },
-
     orderCompleted(state, action) {
       localStorage.removeItem("shippingInfo");
       localStorage.removeItem("cartItems");
@@ -89,8 +100,8 @@ const { actions, reducer } = cartSlice;
 export const {
   addCartItemRequest,
   addCartItemSuccess,
-  increaseCartItemQty,
   decreaseCartItemQty,
+  increaseCartItemQty,
   removeItemFromCart,
   saveShippingInfo,
   orderCompleted,
