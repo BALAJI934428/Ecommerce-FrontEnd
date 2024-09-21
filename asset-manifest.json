@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/BALAJI934428.github.io/Ecommerce-FrontEnd/static/css/main.fc46d137.css",
+    "main.js": "/BALAJI934428.github.io/Ecommerce-FrontEnd/static/js/main.354bb8e4.js",
+    "index.html": "/BALAJI934428.github.io/Ecommerce-FrontEnd/index.html",
+    "main.fc46d137.css.map": "/BALAJI934428.github.io/Ecommerce-FrontEnd/static/css/main.fc46d137.css.map",
+    "main.354bb8e4.js.map": "/BALAJI934428.github.io/Ecommerce-FrontEnd/static/js/main.354bb8e4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fc46d137.css",
+    "static/js/main.354bb8e4.js"
+  ]
+}
