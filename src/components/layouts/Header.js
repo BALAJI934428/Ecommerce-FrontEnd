@@ -13,7 +13,7 @@ export default function Header() {
   const logoutHandler = () => {
     dispatch(logout);
   };
-
+  console.log(user);
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3">
@@ -43,7 +43,11 @@ export default function Header() {
               <figure className="avatar avatar-nav">
                 <Image
                   width="50px"
-                  src={user.avatar ?? "./images/default_avatar.png"}
+                  src={
+                    user.avatar == undefined
+                      ? "./images/default_avatar.png"
+                      : user.avatar
+                  }
                 />
               </figure>
               <span>{user.name}</span>
