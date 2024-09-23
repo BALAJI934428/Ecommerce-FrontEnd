@@ -38,13 +38,14 @@ import UpdateOrder from "./components/admin/UpdateOrder";
 import UserList from "./components/admin/UserList";
 import UpdateUser from "./components/admin/UpdateUser";
 import ReviewList from "./components/admin/ReviewList";
+import axiosInstance from "./setupProxy";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
   useEffect(() => {
     store.dispatch(loadUser);
     async function getStripeApiKey() {
-      const { data } = await axios.get("/api/v1/stripeapi");
+      const { data } = await axiosInstance.get("/api/v1/stripeapi");
       setStripeApiKey(data.stripeApiKey);
     }
     getStripeApiKey();
