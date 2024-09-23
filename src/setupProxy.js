@@ -13,7 +13,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://ecommerce-backend-3phr.onrender.com",
-  withCredentials: true,
+  baseURL: "https://ecommerce-backend-3phr.onrender.com"
+
 });
 export default axiosInstance;
